@@ -7,6 +7,9 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             
+            - name: checkout 
+              uses: actions/checkout@v4
+              
             - name: aws configure
               uses: aws-actions/configure-aws-credentials@v5
               with:
@@ -24,7 +27,7 @@ jobs:
                 REPOSITORY: gpt-assignment-2.2
                 IMAGE_TAG: latest
               run: |
-                docker build -t $REGISTRY/$REPOSITORY:$IMAGE_TAG -f .github/workflows/Dockerfile .
+                docker build -t $REGISTRY/$REPOSITORY:$IMAGE_TAG  .
                 docker push $REGISTRY/$REPOSITORY:$IMAGE_TAG
 
             

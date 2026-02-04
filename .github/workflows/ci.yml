@@ -9,7 +9,7 @@ jobs:
             
             - name: checkout 
               uses: actions/checkout@v4
-              
+
             - name: aws configure
               uses: aws-actions/configure-aws-credentials@v5
               with:
@@ -30,4 +30,8 @@ jobs:
                 docker build -t $REGISTRY/$REPOSITORY:$IMAGE_TAG  .
                 docker push $REGISTRY/$REPOSITORY:$IMAGE_TAG
 
-            
+            - name: updating lambda
+              run: |
+                aws lambda update-function-code \
+                --function-name gpt-assignment-2-2-container \
+                --image-uri 259242132771.dkr.ecr.us-east-1.amazonaws.com/gpt-assignment-2.2:latest
